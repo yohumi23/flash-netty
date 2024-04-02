@@ -57,3 +57,8 @@ public class ByteBufTest {
         System.out.println();
     }
 }
+
+/**
+ * slice()方法可能用在什么场景？
+ *  TODO
+ */
