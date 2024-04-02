@@ -12,12 +12,12 @@ public class NettyServer {
     private static final int PORT = 8000;
 
     public static void main(String[] args) {
-        NioEventLoopGroup boosGroup = new NioEventLoopGroup();
+        NioEventLoopGroup bossGroup = new NioEventLoopGroup();
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
 
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap
-                .group(boosGroup, workerGroup)
+                .group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 1024)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
@@ -42,3 +42,13 @@ public class NettyServer {
         });
     }
 }
+
+/**
+ *  server端在指定线程模型的时候指定 bossGroup 和 workerGroup 两大线程组。
+ *  +------------------------------+---------------------------------+
+ *  |      bossGroup               |          workerGroup            |
+ *  +------------------------------+---------------------------------+
+ *  |  监听端口，接收新连接的线程组      |  处理每一个连接的数据读写的线程组      |
+ *  +------------------------------+---------------------------------+
+ *  bossGroup接收完连接，交给workerGroup去处理
+ */
