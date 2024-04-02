@@ -35,6 +35,7 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) {
+                        //ch.pipeline()返回的是跟这条连接有关的逻辑处理链，（责任链模式）
                         ch.pipeline().addLast(new FirstClientHandler());
                     }
                 });
