@@ -25,7 +25,11 @@ public class PacketCodeC { //codec ===> coder-decoder 编解码器的意思
         serializerMap.put(serializer.getSerializerAlgorithm(), serializer);
     }
 
-
+    /**
+     * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     * | 魔数(4字节) |  版本号(1字节) | 序列化算法(1字节) | 指令(1字节) | 数据长度(4字节)| 数据(N字节) |
+     * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     */
     public ByteBuf encode(Packet packet) {
         // 1. 创建 ByteBuf 对象
         ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
@@ -60,6 +64,7 @@ public class PacketCodeC { //codec ===> coder-decoder 编解码器的意思
         // 数据包长度
         int length = byteBuf.readInt();
 
+        // 数据的字节数组
         byte[] bytes = new byte[length];
         byteBuf.readBytes(bytes);
 
