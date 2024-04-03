@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static the.flash.protocol.command.Command.LOGIN_REQUEST;
 
-public class PacketCodeC {
+public class PacketCodeC { //codec ===> coder-decoder 编解码器的意思
 
     private static final int MAGIC_NUMBER = 0x12345678;
     private static final Map<Byte, Class<? extends Packet>> packetTypeMap;
@@ -22,7 +22,7 @@ public class PacketCodeC {
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();
-        serializerMap.put(serializer.getSerializerAlogrithm(), serializer);
+        serializerMap.put(serializer.getSerializerAlgorithm(), serializer);
     }
 
 
@@ -35,7 +35,7 @@ public class PacketCodeC {
         // 3. 实际编码过程
         byteBuf.writeInt(MAGIC_NUMBER);
         byteBuf.writeByte(packet.getVersion());
-        byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlogrithm());
+        byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlgorithm());
         byteBuf.writeByte(packet.getCommand());
         byteBuf.writeInt(bytes.length);
         byteBuf.writeBytes(bytes);
